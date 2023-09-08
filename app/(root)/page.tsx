@@ -1,5 +1,10 @@
-export default function Home() {
+import { UserButton } from "@clerk/nextjs";
+
+export default function SetupPage() {
   return (
-    <p>Ecommerce Dashboard</p>
+    <div>
+      <p>ECommerce Website</p>
+      <UserButton afterSignOutUrl="/"/>
+    </div>
   )
 }
