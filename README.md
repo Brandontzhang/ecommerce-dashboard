@@ -1,6 +1,7 @@
 ### E-Commerce Project Admin Dashboard
 
 ## Next.js Lessons
+
 1. Folder structures represent file paths
     - Layout is wrapped around the page.tsx
     - only the page.tsx componenet is actually rendered, anything that you need to be rendered for that route needs to be in there
