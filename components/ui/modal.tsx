@@ -33,14 +33,14 @@ export const Modal: React.FC<ModalProps> = ({
         return null;
     }
     
-    const onChange = (open: boolean) => {
-        if (open) {
+    const onChange = () => {
+        if (isOpen) {
             onClose();
         }
     };
 
     return (
-        <Dialog open={isOpen} onOpenChange={onChange}>
+        <Dialog open={isOpen} onOpenChange={() => onChange()}>
             <DialogContent>
                 <DialogHeader>
                     <DialogHeader>
