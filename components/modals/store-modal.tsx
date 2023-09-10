@@ -1,13 +1,22 @@
 "use client";
 import * as z from "zod";
+import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
+import React, { useState } from "react";
 import { Modal } from "../ui/modal";
 import { useStoreModalContext } from "@/context/useStoreModalContext";
 import { useForm } from "react-hook-form";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
     name: z.string().min(1, {
@@ -16,6 +25,7 @@ const formSchema = z.object({
 });
 
 export const StoreModal = () => {
+    const [isLoading, setIsLoading] = useState(false);
     const { isOpen, setIsOpen } = useStoreModalContext();
     const closeDialog = () => {
         setIsOpen(false);
@@ -29,7 +39,21 @@ export const StoreModal = () => {
     });
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        console.log("Submit request to create form");
+        try {
+            setIsLoading(true);
+            // const response = await axios.post('/api/stores', values);
+            toast.success("Store created");
+        } catch (err) {
+            if (typeof err === "string") {
+                toast.error(err);
+            } else {
+                toast.error(
+                    "Store creation failed, please contact your DB admin",
+                );
+            }
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
@@ -40,25 +64,40 @@ export const StoreModal = () => {
             onClose={closeDialog}
         >
             <Form {...form}>
-               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 py-4">
+                <form
+                    onSubmit={form.handleSubmit(onSubmit)}
+                    className="space-y-8 py-4"
+                >
                     <FormField
                         control={form.control}
                         name="name"
-                        render={({field}) => (
+                        render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Name</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="Store Name" {...field} />
+                                    <Input
+                                        disabled={isLoading}
+                                        placeholder="Store Name"
+                                        {...field}
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
-                        )} 
+                        )}
                     />
                     <div className="float-right space-x-2">
-                        <Button variant="outline" onClick={() => setIsOpen(false)}>Cancel</Button>
-                        <Button type="submit">Submit</Button>
+                        <Button
+                            disabled={isLoading}
+                            variant="outline"
+                            onClick={() => setIsOpen(false)}
+                        >
+                            Cancel
+                        </Button>
+                        <Button disabled={isLoading} type="submit">
+                            Submit
+                        </Button>
                     </div>
-               </form>
+                </form>
             </Form>
         </Modal>
     );

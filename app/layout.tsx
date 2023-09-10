@@ -3,6 +3,8 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { StoreModalContextProvider } from "@/context/StoreModalContext";
+import prismadb from "@/lib/prismadb";
+import { ToasterProvider } from "@/providers/ToastProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +22,10 @@ export default function RootLayout({
         <ClerkProvider>
             <StoreModalContextProvider>
                 <html lang="en">
-                    <body className={inter.className}>{children}</body>
+                    <body className={inter.className}>
+                        <ToasterProvider />
+                        {children}
+                    </body>
                 </html>
             </StoreModalContextProvider>
         </ClerkProvider>
