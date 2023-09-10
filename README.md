@@ -39,3 +39,9 @@
         2. Using a third party component (import) that is not up to date with new conventions
             - use a useEffect hook to check that we are on the client side before rendering the component
             - its not enough to just make it a client component, since client components are still prerendered on the server side, need to just not render it at all (reference shop modal)
+
+
+## Use Form Hook
+1. Schemas are defined for form validation
+    - popular libraries include zod and yup (zod seems to be a bit more popular since it better supports typescript)
+2. Reducers are included within the use form hook, and take in the schema defined so that it can be used to validate user inputs
