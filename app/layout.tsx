@@ -3,7 +3,6 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { StoreModalContextProvider } from "@/context/StoreModalContext";
-import prismadb from "@/lib/prismadb";
 import { ToasterProvider } from "@/providers/ToastProvider";
 
 const inter = Inter({ subsets: ["latin"] });

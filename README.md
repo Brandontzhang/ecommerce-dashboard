@@ -45,3 +45,14 @@
 1. Schemas are defined for form validation
     - popular libraries include zod and yup (zod seems to be a bit more popular since it better supports typescript)
 2. Reducers are included within the use form hook, and take in the schema defined so that it can be used to validate user inputs
+
+## New Typescript Lingo
+1. What does the keyword `declare` do? And `globalThis`?
+
+## React Knowledge
+1. When does the code run if it is not included within any hooks? Just right in the component, outside of any useEffect?
+
+## Prisma Tips and Tricks
+1. To generate the schema, use npx prisma generate
+2. To push the schema to the database, use npx prisma db push
+3. To reset the db, use npx prisma migrate reset (doing so will require generating and pushing the schemas again)
