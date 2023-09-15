@@ -56,3 +56,17 @@
 1. To generate the schema, use npx prisma generate
 2. To push the schema to the database, use npx prisma db push
 3. To reset the db, use npx prisma migrate reset (doing so will require generating and pushing the schemas again)
+
+
+## Big Lesson:
+- Do research into the Framework/technology learning, answering the following questions:
+    - Why this?
+        - More than, "I think it's intersting", "people said I should learn it", "it's industry standard"
+        - More like, why is it intersting, why do people learn it, why is it industry standard?
+    - What are the alternatives to it?
+    - What problems does it solve?
+    - What sets it apart from other tools doing a similar thing?
+    - What are the basics of it?
+        - the core decisions behind the design
+
+In trying to solve a bug, I realized I didn't even know why half the things were occuring. What are server and client components? What exactly is a hydration error? Why am I jumping through all these hoops and hurdles to learn next.js when all of this would've been simpler in basic React? Well, seems like I lack a basic understanding. Not to say I need to go and read a book on the framework, but I'm going to go do some more prep work before jumping into a project like this.
