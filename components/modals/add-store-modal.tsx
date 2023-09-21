@@ -9,13 +9,18 @@ import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import useNewStoreModal from "@/hooks/stores/useNewStoreModal";
+import axios from "axios";
 
 const newStoreFormSchema = z.object({
     name: z.string().min(1, "Name of store is required").max(100),
 });
 
-export const AddStoreModal = () => {
-    const {open, toggleOpen} = useNewStoreModal();
+type AddStoreModalProps = {
+    userId: string;
+};
+
+export const AddStoreModal = ({ userId }: AddStoreModalProps) => {
+    const { open, toggleOpen } = useNewStoreModal();
 
     type NewStoreSchemaType = z.infer<typeof newStoreFormSchema>;
     const form = useForm<NewStoreSchemaType>({
@@ -26,7 +31,10 @@ export const AddStoreModal = () => {
     });
 
     const onSubmit = async (values: NewStoreSchemaType) => {
-        console.log(values);
+        const newStore = await axios.post("/api/stores", {
+            name: values.name,
+            userId: userId,
+        });
     };
 
     return (
@@ -54,7 +62,7 @@ export const AddStoreModal = () => {
                                 </FormItem>
                             )}
                         />
-                        <div className="space-x-4 float-right">
+                        <div className="float-right space-x-4">
                             <Button variant="outline" onClick={toggleOpen}>
                                 Cancel
                             </Button>
