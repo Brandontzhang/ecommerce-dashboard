@@ -7,19 +7,19 @@ import { CommandEmpty } from "cmdk";
 import { PopoverContent } from "./popover";
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 type ComboBoxProps = {
-    name: string,
-    width: string,
-    data: [
-        {
-            value: string;
-            label: string;
-        },
-    ];
+    name: string;
+    width: string;
+    data: {
+        value: string;
+        label: string;
+    }[];
+    url: string;
 };
 
-export default function ComboBox({ name, width, data }: ComboBoxProps) {
+export default function ComboBox({ name, width, data, url }: ComboBoxProps) {
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState("");
 
@@ -42,23 +42,27 @@ export default function ComboBox({ name, width, data }: ComboBoxProps) {
                     <CommandEmpty className="p-4">No Results</CommandEmpty>
                     <CommandGroup>
                         {data.map((d) => (
-                            <CommandItem
-                                key={d.value}
-                                onSelect={(newVal: string) => {
-                                    setValue(newVal === value ? "" : newVal);
-                                    setOpen(false);
-                                }}
-                            >
-                                <Check
-                                    className={cn(
-                                        "mr-2 h-4 w-4",
-                                        value === d.value
-                                            ? "opacity-100"
-                                            : "opacity-0",
-                                    )}
-                                />
-                                {d.label}
-                            </CommandItem>
+                            <Link key={d.value} href={`/${url}/${d.value}`}>
+                                <CommandItem
+                                    key={d.value}
+                                    onSelect={(newVal: string) => {
+                                        setValue(
+                                            newVal === value ? "" : newVal,
+                                        );
+                                        setOpen(false);
+                                    }}
+                                >
+                                    <Check
+                                        className={cn(
+                                            "mr-2 h-4 w-4",
+                                            value === d.value
+                                                ? "opacity-100"
+                                                : "opacity-0",
+                                        )}
+                                    />
+                                    {d.label}
+                                </CommandItem>
+                            </Link>
                         ))}
                     </CommandGroup>
                 </Command>

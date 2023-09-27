@@ -67,7 +67,7 @@ export const AddStoreModal = ({ userId, isOpen }: AddStoreModalProps) => {
                                 </FormItem>
                             )}
                         />
-                        <div className="float-right space-x-4">
+                        <div className="float-right space-x-4 space-y-4">
                             <Button variant="outline" onClick={() => toggleOpen()}>
                                 Cancel
                             </Button>
