@@ -2,11 +2,11 @@ import { create } from 'zustand';
 
 type NewStoreModalState = {
     open: boolean
-    toggleOpen: () => void
+    toggleOpen: (open? : boolean) => void
 }
 const useNewStoreModal = create<NewStoreModalState>((set) => ({
     open: true,
-    toggleOpen: () => set((state) => ({ open: !state.open }))
+    toggleOpen: (open? : boolean) => set((state) => ({ open: open ? open : !state.open }))
 }))
 
 export default useNewStoreModal;

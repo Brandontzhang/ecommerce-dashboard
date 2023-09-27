@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Modal } from "../ui/modal";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -17,10 +17,15 @@ const newStoreFormSchema = z.object({
 
 type AddStoreModalProps = {
     userId: string;
+    isOpen: boolean;
 };
 
-export const AddStoreModal = ({ userId }: AddStoreModalProps) => {
+export const AddStoreModal = ({ userId, isOpen }: AddStoreModalProps) => {
     const { open, toggleOpen } = useNewStoreModal();
+
+    useEffect(() => {
+        toggleOpen(isOpen);
+    }, []);
 
     type NewStoreSchemaType = z.infer<typeof newStoreFormSchema>;
     const form = useForm<NewStoreSchemaType>({
@@ -63,7 +68,7 @@ export const AddStoreModal = ({ userId }: AddStoreModalProps) => {
                             )}
                         />
                         <div className="float-right space-x-4">
-                            <Button variant="outline" onClick={toggleOpen}>
+                            <Button variant="outline" onClick={() => toggleOpen()}>
                                 Cancel
                             </Button>
                             <Button type="submit">Continue</Button>
