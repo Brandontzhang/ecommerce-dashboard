@@ -40,6 +40,8 @@ export const AddStoreModal = ({ userId, isOpen }: AddStoreModalProps) => {
             name: values.name,
             userId: userId,
         });
+
+        toggleOpen();
     };
 
     return (

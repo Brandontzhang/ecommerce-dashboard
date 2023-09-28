@@ -32,8 +32,10 @@ export default function ComboBox({ name, width, data, url }: ComboBoxProps) {
                     className={`${width} justify-between`}
                 >
                     {value
-                        ? data.find((d) => (d.value = value))?.label
-                        : `Select ${name}...`}
+                        ? data.find(
+                              (store) => store.label.toLowerCase() == value,
+                          )?.label
+                        : "Select a store..."}
                 </Button>
             </PopoverTrigger>
             <PopoverContent className={`${width} p-0`}>
@@ -55,7 +57,7 @@ export default function ComboBox({ name, width, data, url }: ComboBoxProps) {
                                     <Check
                                         className={cn(
                                             "mr-2 h-4 w-4",
-                                            value === d.value
+                                            value == d.label.toLowerCase()
                                                 ? "opacity-100"
                                                 : "opacity-0",
                                         )}
