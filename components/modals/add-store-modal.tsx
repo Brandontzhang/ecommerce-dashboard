@@ -9,7 +9,8 @@ import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import useNewStoreModal from "@/hooks/stores/useNewStoreModal";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
+import { useToast } from "../ui/use-toast";
 
 const newStoreFormSchema = z.object({
     name: z.string().min(1, "Name of store is required").max(100),
@@ -22,6 +23,7 @@ type AddStoreModalProps = {
 
 export const AddStoreModal = ({ userId, isOpen }: AddStoreModalProps) => {
     const { open, toggleOpen } = useNewStoreModal();
+    const { toast } = useToast();
 
     useEffect(() => {
         toggleOpen(isOpen);
@@ -36,12 +38,32 @@ export const AddStoreModal = ({ userId, isOpen }: AddStoreModalProps) => {
     });
 
     const onSubmit = async (values: NewStoreSchemaType) => {
-        const newStore = await axios.post("/api/stores", {
-            name: values.name,
-            userId: userId,
-        });
+        try {
+            const { data: newStore } = await axios.post("/api/stores", {
+                name: values.name,
+                userId: userId,
+            });
 
-        toggleOpen();
+            toggleOpen(false);
+
+            toast({
+                description: `New Store ${newStore.name} created`,
+            });
+        } catch (err: unknown) {
+            let errorDescription: string = "";
+            if (err instanceof AxiosError || err instanceof Error) {
+                errorDescription = err.message;
+            } else if (typeof err === "string") {
+                errorDescription = err;
+            } else {
+                errorDescription =
+                    "Unknown Error, please speak to the server administrator";
+            }
+            toast({
+                variant: "destructive",
+                description: errorDescription,
+            });
+        }
     };
 
     return (
@@ -70,7 +92,10 @@ export const AddStoreModal = ({ userId, isOpen }: AddStoreModalProps) => {
                             )}
                         />
                         <div className="float-right space-x-4 space-y-4">
-                            <Button variant="outline" onClick={() => toggleOpen()}>
+                            <Button
+                                variant="outline"
+                                onClick={() => toggleOpen()}
+                            >
                                 Cancel
                             </Button>
                             <Button type="submit">Continue</Button>
