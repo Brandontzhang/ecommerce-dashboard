@@ -10,7 +10,6 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 
 type ComboBoxProps = {
-    name: string;
     width: string;
     data: {
         value: string;
@@ -19,7 +18,7 @@ type ComboBoxProps = {
     url: string;
 };
 
-export default function ComboBox({ name, width, data, url }: ComboBoxProps) {
+export default function ComboBox({ width, data, url }: ComboBoxProps) {
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState("");
 
