@@ -11,7 +11,7 @@ export const NavLinks = () => {
     const options = [
         {
             label: "Stores",
-            url: "stores",
+            url: "",
         },
         {
             label: "Settings",
