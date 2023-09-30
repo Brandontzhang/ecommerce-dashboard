@@ -1,4 +1,5 @@
 "use client";
+
 import { Popover, PopoverTrigger } from "@radix-ui/react-popover";
 import { useState } from "react";
 import { Button } from "./button";
@@ -8,6 +9,7 @@ import { PopoverContent } from "./popover";
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { FaStore } from "react-icons/fa";
 
 type ComboBoxProps = {
     width: string;
@@ -28,8 +30,9 @@ export default function ComboBox({ width, data, url }: ComboBoxProps) {
                 <Button
                     variant="outline"
                     role="combobox"
-                    className={`${width} justify-between`}
+                    className={`${width} justify-start gap-2`}
                 >
+                    <FaStore />
                     {value
                         ? data.find(
                               (store) => store.label.toLowerCase() == value,
