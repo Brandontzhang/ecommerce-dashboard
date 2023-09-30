@@ -18,7 +18,7 @@ const Navbar = async () => {
                     value: store.id,
                     label: store.name,
                 }))}
-                url="stores"
+                url="settings"
             />
             <NavLinks />
             <div className="ml-auto">
