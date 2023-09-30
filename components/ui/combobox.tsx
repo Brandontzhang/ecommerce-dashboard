@@ -37,7 +37,7 @@ export default function ComboBox({ width, data, url }: ComboBoxProps) {
                         ? data.find(
                               (store) => store.label.toLowerCase() == value,
                           )?.label
-                        : "Select a store..."}
+                        : <span className="overflow-hidden whitespace-nowrap">Select a store...</span>}
                 </Button>
             </PopoverTrigger>
             <PopoverContent className={`${width} p-0`}>
