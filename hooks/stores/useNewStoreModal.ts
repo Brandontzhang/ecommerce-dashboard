@@ -6,7 +6,7 @@ type NewStoreModalState = {
 }
 const useNewStoreModal = create<NewStoreModalState>((set) => ({
     open: true,
-    toggleOpen: (open? : boolean) => set((state) => ({ open: open ? open : !state.open }))
+    toggleOpen: (isOpen? : boolean) => set((state) => ({ open: isOpen != undefined ? isOpen : !state.open }))
 }))
 
 export default useNewStoreModal;
