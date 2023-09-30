@@ -8,7 +8,7 @@ export default async function StorePage({ params } : { params : { storeid: strin
     return (
         <>
             <span>Viewing page for: {params.storeid}</span>
-            <DeleteButton token={token} storeid={params.storeid} />
+            <DeleteButton storeid={params.storeid} />
         </>
     )
 }
