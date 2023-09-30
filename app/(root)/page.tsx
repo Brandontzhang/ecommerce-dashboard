@@ -1,3 +1,4 @@
+import AddStoreCard from "@/components/cards/add-store-card";
 import StoreCard from "@/components/cards/store-card";
 import { auth } from "@clerk/nextjs";
 import { Store } from "@prisma/client";
@@ -11,10 +12,11 @@ export default async function Page() {
     });
 
     return (
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 m-10">
+        <div className="m-10 grid grid-cols-2 gap-10 md:grid-cols-6">
             {stores.map((store: Store) => (
                 <StoreCard key={store.id} store={store} />
             ))}
+            <AddStoreCard />
         </div>
     );
 }
