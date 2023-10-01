@@ -11,6 +11,7 @@ import { Button } from "../ui/button";
 import useNewStoreModal from "@/hooks/stores/useNewStoreModal";
 import axios, { AxiosError } from "axios";
 import { useToast } from "../ui/use-toast";
+import { useRouter } from "next/navigation";
 
 const newStoreFormSchema = z.object({
     name: z.string().min(1, "Name of store is required").max(100),
@@ -24,6 +25,7 @@ type AddStoreModalProps = {
 export const AddStoreModal = ({ userId, isOpen }: AddStoreModalProps) => {
     const { open, toggleOpen } = useNewStoreModal();
     const { toast } = useToast();
+    const router = useRouter();
 
     useEffect(() => {
         toggleOpen(isOpen);
@@ -45,7 +47,7 @@ export const AddStoreModal = ({ userId, isOpen }: AddStoreModalProps) => {
             });
 
             toggleOpen(false);
-
+            router.refresh();
             toast({
                 description: `New Store ${newStore.name} created`,
             });

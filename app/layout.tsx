@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
 import Navbar from "@/components/nav/Navbar";
+import DeleteStoreModal from "@/components/modals/delete-store-modal";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,6 +23,7 @@ export default function RootLayout({
             <html lang="en">
                 <body className={inter.className}>
                     <Navbar />
+                    <DeleteStoreModal />
                     {children}
                     <Toaster />
                 </body>
