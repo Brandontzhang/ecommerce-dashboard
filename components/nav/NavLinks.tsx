@@ -7,6 +7,7 @@ import React, { useEffect, useState } from "react";
 export const NavLinks = () => {
     const pathname = usePathname();
     const [currentPage, setCurrentPage] = useState("");
+    const [storeid, setStoreid] = useState("");
 
     const options = [
         {
@@ -32,8 +33,9 @@ export const NavLinks = () => {
     ];
 
     useEffect(() => {
-        const page = pathname.split("/")[1];
-        setCurrentPage(page);
+        const params = pathname.split("/");
+        setCurrentPage(params[1]);
+        setStoreid(params[2]);
     }, [pathname]);
 
     return (
@@ -42,10 +44,12 @@ export const NavLinks = () => {
                 <Link
                     className={cn(
                         "hover:text-primary",
+                        !storeid && "hidden",
                         currentPage === option.url && "text-primary",
                     )}
                     key={option.url}
-                    href={`/${option.url}`}
+                    href={option.url.length > 0 ? `/${option.url}/${storeid}` : "/"}
+                    
                 >
                     {option.label}
                 </Link>
