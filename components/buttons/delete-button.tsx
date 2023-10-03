@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@clerk/nextjs";
 import axios from "axios";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { FaTrashAlt } from "react-icons/fa";
 
 type DeleteButtonProps = {
@@ -24,6 +24,7 @@ const DeleteButton = ({ storeid }: DeleteButtonProps) => {
             },
         });
         router.refresh();
+        redirect('/');  
     };
 
     return (

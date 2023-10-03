@@ -1,7 +1,7 @@
-import { Button } from "@/components/ui/button";
+import { ToggleDeleteModalButton } from "@/components/modals/delete-store-modal";
 import { auth } from "@clerk/nextjs";
+import { Store } from "@prisma/client";
 import axios from "axios";
-import { FaTrashAlt } from "react-icons/fa";
 
 // Todo: create form page for updating (will be a client component)
 
@@ -13,7 +13,7 @@ export default async function SettingsPage({
     const user = auth();
     const token = await user.getToken();
     const { storeid } = params;
-    const store = await axios.get(
+    const { data: store }: { data: Store } = await axios.get(
         `http://localhost:3000/api/stores/${storeid}`,
         {
             headers: {
@@ -24,14 +24,12 @@ export default async function SettingsPage({
 
     return (
         <>
-            <section className="flex w-full flex-row border-b border-b-slate-300 p-4">
+            <section className="flex w-full flex-row items-center border-b border-b-slate-300 p-4">
                 <div className="space-y-4">
                     <h1 className="text-5xl font-bold">Settings</h1>
                     <p className="text-gray-500">Manage Store preferences</p>
                 </div>
-                <Button size="sm" variant="destructive" className="ml-auto">
-                    <FaTrashAlt />
-                </Button>
+                <ToggleDeleteModalButton className="ml-auto" store={store} />
             </section>
         </>
     );

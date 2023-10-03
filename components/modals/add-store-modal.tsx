@@ -47,6 +47,7 @@ export const AddStoreModal = ({ userId, isOpen }: AddStoreModalProps) => {
             });
 
             toggleOpen(false);
+            form.reset();
             router.refresh();
             toast({
                 description: `New Store ${newStore.name} created`,

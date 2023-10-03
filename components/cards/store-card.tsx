@@ -10,17 +10,14 @@ import {
 } from "../ui/card";
 import Link from "next/link";
 import { Button } from "../ui/button";
-import { FaTrashAlt } from "react-icons/fa";
 import { RiSettings4Fill } from "react-icons/ri";
-import useConfirmDelete from "@/hooks/stores/useConfirmDeleteModal";
+import { ToggleDeleteModalButton } from "../modals/delete-store-modal";
 
 type StoreCardProps = {
     store: Store;
 };
 
 const StoreCard = ({ store }: StoreCardProps) => {
-    const { toggleOpen: confirmDelete } = useConfirmDelete();
-
     return (
         <Card>
             <CardHeader>
@@ -28,13 +25,7 @@ const StoreCard = ({ store }: StoreCardProps) => {
             </CardHeader>
             <CardContent>Content</CardContent>
             <CardFooter className="justify-end space-x-2">
-                <Button
-                    size="sm"
-                    variant="destructive"
-                    onClick={() => confirmDelete(store)}
-                >
-                    <FaTrashAlt />
-                </Button>
+                <ToggleDeleteModalButton store={store} />
                 <Link href={`/settings/${store.id}`}>
                     <Button size="sm">
                         <RiSettings4Fill />

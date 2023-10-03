@@ -4,7 +4,7 @@ import useConfirmDelete from "@/hooks/stores/useConfirmDeleteModal";
 import { Modal } from "../ui/modal";
 import { useAuth } from "@clerk/nextjs";
 import axios, { AxiosError } from "axios";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,6 +12,32 @@ import { toast } from "../ui/use-toast";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { FaTrashAlt } from "react-icons/fa";
+import { Store } from "@prisma/client";
+import { cn } from "@/lib/utils";
+
+type ToggleDeleteModalButtonProps = {
+    store: Store;
+    className?: string;
+};
+
+const ToggleDeleteModalButton = ({
+    store,
+    className,
+}: ToggleDeleteModalButtonProps) => {
+    const { toggleOpen } = useConfirmDelete();
+
+    return (
+        <Button
+            className={cn(className)}
+            variant="destructive"
+            size="sm"
+            onClick={() => toggleOpen(store, true)}
+        >
+            <FaTrashAlt />
+        </Button>
+    );
+};
 
 const DeleteStoreModal = () => {
     const { store, open, toggleOpen } = useConfirmDelete();
@@ -34,7 +60,7 @@ const DeleteStoreModal = () => {
         try {
             const token = await auth.getToken();
 
-            const res = axios.delete(
+            const res = await axios.delete(
                 `http://localhost:3000/api/stores/${store?.id}`,
                 {
                     headers: {
@@ -44,6 +70,7 @@ const DeleteStoreModal = () => {
             );
             toggleOpen(undefined, false);
             router.refresh();
+            router.push("/");
             toast({
                 description: `Store ${store?.name} has been deleted`,
             });
@@ -61,6 +88,8 @@ const DeleteStoreModal = () => {
                 variant: "destructive",
                 description: errorDescription,
             });
+        } finally {
+            form.reset();
         }
     };
 
@@ -110,4 +139,4 @@ const DeleteStoreModal = () => {
     );
 };
 
-export default DeleteStoreModal;
+export { ToggleDeleteModalButton, DeleteStoreModal };
