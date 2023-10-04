@@ -16,6 +16,23 @@ export async function GET(
     return NextResponse.json(res);
 }
 
+export async function PUT(
+    request: Request,
+    { params }: { params: { storeid: string } },
+) {
+    const { storeid } = params;
+    const body = await request.json();
+
+    const res = await prismadb.store.update({
+        data: body,
+        where: {
+            id: storeid,
+        },
+    });
+
+    return NextResponse.json(res)
+}
+
 export async function DELETE(
     _request: Request,
     { params }: { params: { storeid: string } },

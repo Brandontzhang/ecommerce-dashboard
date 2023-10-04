@@ -2,8 +2,7 @@ import { ToggleDeleteModalButton } from "@/components/modals/delete-store-modal"
 import { auth } from "@clerk/nextjs";
 import { Store } from "@prisma/client";
 import axios from "axios";
-
-// Todo: create form page for updating (will be a client component)
+import { UpdateStoreForm } from "./update-store-form";
 
 export default async function SettingsPage({
     params,
@@ -23,14 +22,17 @@ export default async function SettingsPage({
     );
 
     return (
-        <>
-            <section className="flex w-full flex-row items-center border-b border-b-slate-300 p-4">
+        <main className="p-4">
+            <section className="flex w-full flex-row items-center border-b border-b-slate-300">
                 <div className="space-y-4">
-                    <h1 className="text-5xl font-bold">Settings</h1>
+                    <h1 className="text-5xl font-bold">{store.name} Settings</h1>
                     <p className="text-gray-500">Manage Store preferences</p>
                 </div>
                 <ToggleDeleteModalButton className="ml-auto" store={store} />
             </section>
-        </>
+            <section>
+                <UpdateStoreForm className="mt-4" store={store} />
+            </section>
+        </main>
     );
 }
