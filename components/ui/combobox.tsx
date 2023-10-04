@@ -10,6 +10,7 @@ import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { FaStore } from "react-icons/fa";
+import useSearchBox from "@/hooks/stores/useSearchBox";
 
 type ComboBoxProps = {
     width: string;
@@ -22,7 +23,7 @@ type ComboBoxProps = {
 
 export default function ComboBox({ width, data, url }: ComboBoxProps) {
     const [open, setOpen] = useState(false);
-    const [value, setValue] = useState("");
+    const { value, setValue } = useSearchBox();
 
     return (
         <Popover open={open} onOpenChange={setOpen}>

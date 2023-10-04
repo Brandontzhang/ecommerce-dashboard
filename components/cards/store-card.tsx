@@ -8,10 +8,8 @@ import {
     CardHeader,
     CardTitle,
 } from "../ui/card";
-import Link from "next/link";
-import { Button } from "../ui/button";
-import { RiSettings4Fill } from "react-icons/ri";
 import { ToggleDeleteModalButton } from "../modals/delete-store-modal";
+import GoToStoreButton from "./go-to-store-button";
 
 type StoreCardProps = {
     store: Store;
@@ -26,11 +24,7 @@ const StoreCard = ({ store }: StoreCardProps) => {
             <CardContent>Content</CardContent>
             <CardFooter className="justify-end space-x-2">
                 <ToggleDeleteModalButton store={store} />
-                <Link href={`/settings/${store.id}`}>
-                    <Button size="sm">
-                        <RiSettings4Fill />
-                    </Button>
-                </Link>
+                <GoToStoreButton store={store} />
             </CardFooter>
         </Card>
     );
