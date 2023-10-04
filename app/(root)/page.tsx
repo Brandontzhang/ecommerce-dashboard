@@ -3,9 +3,14 @@ import StoreCard from "@/components/cards/store-card";
 import { auth } from "@clerk/nextjs";
 import { Store } from "@prisma/client";
 import axios from "axios";
+import { redirect } from "next/navigation";
 
 export default async function Page() {
     const user = auth();
+
+    if (!user.userId) {
+        redirect("/sign-in");
+    }
 
     const { data: stores } = await axios("http://localhost:3000/api/stores", {
         headers: { Authorization: `Bearer ${await user.getToken()}` },

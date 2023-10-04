@@ -1,4 +1,7 @@
 import { AddStoreModal } from "@/components/modals/add-store-modal";
+import { DeleteStoreModal } from "@/components/modals/delete-store-modal";
+import Navbar from "@/components/nav/Navbar";
+import { Toaster } from "@/components/ui/toaster";
 import { auth } from "@clerk/nextjs";
 import axios from "axios";
 import { redirect } from "next/navigation";
@@ -20,6 +23,9 @@ export default async function Layout({
 
     return (
         <>
+            <DeleteStoreModal />
+            <Toaster />
+            <Navbar />
             <AddStoreModal
                 userId={user.userId as string}
                 isOpen={stores.length == 0}
