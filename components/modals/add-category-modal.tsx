@@ -43,7 +43,7 @@ const AddCategoryModal = ({ userId, store }: AddCategoryModalProps) => {
                 `/api/stores/${store.id}/categories`,
                 {
                     name: values.name,
-                    userId: userId,
+                    storeId: store.id, 
                 },
             );
 
@@ -51,7 +51,7 @@ const AddCategoryModal = ({ userId, store }: AddCategoryModalProps) => {
             form.reset();
             router.refresh();
             toast({
-                description: `New Store ${newCategory.name} created`,
+                description: `New category ${newCategory.name} created`,
             });
         } catch (err: unknown) {
             let errorDescription: string = "";

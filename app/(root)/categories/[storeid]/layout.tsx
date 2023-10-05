@@ -18,9 +18,15 @@ export default async function Layout({
         redirect("/sign-in");
     }
 
+    const token = await user.getToken();
+
     const { data: store } = await axios(`http://localhost:3000/api/stores/${params.storeid}`, {
-        headers: { Authorization: `Bearer ${await user.getToken()}` },
+        headers: { Authorization: `Bearer ${token}` },
     });
+
+    const { data: categories } = await axios(`http://localhost:3000/api/stores/${params.storeid}/categories`, {
+        headers: { Authorization: `Bearer ${token}`}
+    })
 
     return (
         <>
